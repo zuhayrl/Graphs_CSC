@@ -41,7 +41,7 @@ public class GenData {
     }
 
     
-    public static void main(String[] args){
-        makeData(50, 80);
-    }
+    // public static void main(String[] args){
+    //     makeData(50, 80);
+    // }
 }   

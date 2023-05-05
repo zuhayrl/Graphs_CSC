@@ -148,7 +148,7 @@ public class Graph
      * Single-source weighted shortest-path algorithm. (Dijkstra) 
      * using priority queues based on the binary heap
      */
-    public void dijkstra( String startName )
+    public void dijkstra( String startName, int numVertices, int numEdges )
     {
         PriorityQueue<Path> pq = new PriorityQueue<Path>( );
 
@@ -167,7 +167,7 @@ public class Graph
             Vertex v = vrec.dest;
             if( v.scratch != 0 )  // already processed v
                 continue;
-             
+            
             // additional
             opcount_v++; // vertex being processed
 
@@ -194,6 +194,11 @@ public class Graph
                 }
             }
         }
+        System.out.print(numVertices);System.out.print(" ");
+        System.out.print(numEdges);System.out.print(" ");
+        System.out.print(opcount_e);System.out.print(" ");
+        System.out.print(opcount_v);System.out.print(" ");
+        System.out.println(opcount_pq);
     }
 
     /**
@@ -308,7 +313,7 @@ public class Graph
                 g.unweighted( startName );
             else if( alg.equals( "d" ) )    
             {
-                g.dijkstra( startName );
+                //g.dijkstra( startName );
                 g.printPath( destName );
             }
             else if( alg.equals( "n" ) )
@@ -319,13 +324,13 @@ public class Graph
             g.printPath( destName );
         }
         catch( NoSuchElementException e )
-          { return false; }
+            { return false; }
         catch( GraphException e )
-          { System.err.println( e ); }
+            { System.err.println( e ); }
         return true;
     }
 
-    /**
+    /*
      * A main routine that:
      * 1. Reads a file containing edges (supplied as a command-line parameter);
      * 2. Forms the graph;
@@ -334,9 +339,13 @@ public class Graph
      * The data file is a sequence of lines of the format
      *    source destination cost
      */
-    public static void main( String [ ] args )
+    //public static void main( String [ ] args )
+    public static void instrum()
     {
-        GenData.makeData(10, 20);
+        //GenData.makeData(10, 20);
+        String firstEdge = "Node001";
+        int first =0;
+        int numEdges=0;
         
         Graph g = new Graph( );
         try
@@ -349,6 +358,8 @@ public class Graph
             while( graphFile.hasNextLine( ) )
             {
                 line = graphFile.nextLine( );
+                numEdges+=1;
+                if (first==0){firstEdge = line.substring(0, 7);first+=1;} //uses first edge as startpoint
                 StringTokenizer st = new StringTokenizer( line );
 
                 try
@@ -364,17 +375,41 @@ public class Graph
                     g.addEdge( source, dest, cost );
                 }
                 catch( NumberFormatException e )
-                  { System.err.println( "Skipping ill-formatted line " + line ); }
-             }
-         }
-         catch( IOException e )
-           { System.err.println( e ); }
+                    { System.err.println( "Skipping ill-formatted line " + line ); }
+            }
 
-         System.out.println( "File read..." );
-         System.out.println( g.vertexMap.size( ) + " vertices" );
+            //
+        }
+        catch( IOException e )
+        { System.err.println( "Error reading file" ); }
 
-         Scanner in = new Scanner( System.in );
-         while( processRequest( in, g ) )
-             ;
+        //System.out.println( "File read..." );
+        //System.out.println( g.vertexMap.size( ) + " vertices" );
+
+        //Scanner in = new Scanner( System.in );
+        //while( processRequest( in, g ) );
+        int numVertices = g.vertexMap.size();
+        g.dijkstra(firstEdge,numVertices, numEdges);
+        //System.out.println(firstEdge);
+
     }
+
+    public static void main( String [ ] args )
+    {
+        //int setNum = 1;
+        for (int i=10;i<60;i=i+10)
+        {
+            for (int j=20;j<95;j=j+15)
+            {
+                GenData.makeData(i, j);
+                instrum();
+                
+                
+
+            }
+            System.out.println();
+        }
+        //GenData.makeData(10, 20);
+        //instrum();
+    }   
 }
