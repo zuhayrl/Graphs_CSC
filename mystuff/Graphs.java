@@ -32,9 +32,13 @@ public class Graphs {
         }
     }
 
+    static int thesource;
+
     public static void main(String[] args) {
 
-        String filename = "C:\\Users\\zuhay\\OneDrive\\University\\Third Year\\3rdYearFirstSem\\CSC2001F\\Assignments\\Assignment 5\\Graphs_CSC\\src";
+        //DataGenerator.main(args);
+
+        String filename = "C:\\Users\\zuhay\\OneDrive\\My Documents\\Git\\Github\\Graphs_CSC\\mystuff\\data.txt";
         List<List<Edge>> graph = new ArrayList<>();
 
         // Read the data from the file and create the graph
@@ -43,9 +47,11 @@ public class Graphs {
 
             // Determine the number of nodes in the graph
             int numNodes = 0;
+            int inc = 0;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(" ");
                 int source = parts[0].charAt(0) - 'A';
+                if (inc==0){thesource=source; inc+=1;}
                 int dest = parts[1].charAt(0) - 'A';
                 int weight = Integer.parseInt(parts[2]);
 
@@ -73,7 +79,7 @@ public class Graphs {
         }
 
         // Run Dijkstra's algorithm from a specified source node
-        int sourceNode = 0; // Change this value to specify a different source node
+        int sourceNode = thesource; // Change this value to specify a different source node
         int[] dist = new int[graph.size()];
         Arrays.fill(dist, Integer.MAX_VALUE);
         dist[sourceNode] = 0;
@@ -100,7 +106,9 @@ public class Graphs {
 
         // Print the shortest distances from the source node to all other nodes in the graph
         for (int i = 0; i < dist.length; i++) {
-            System.out.printf("%c -> %c: %d%n", sourceNode + 'A', i + 'A', dist[i]);}
+            if (dist[i] < 100){System.out.printf("%c -> %c: %d%n", sourceNode + 'A', i + 'A', dist[i]);}
+        }
+            
 
     }
 }
