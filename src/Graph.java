@@ -152,6 +152,9 @@ public class Graph
     /**
      * Single-source weighted shortest-path algorithm. (Dijkstra) 
      * using priority queues based on the binary heap
+     * then prints number of Vertices and Edges and counts for number of operations for Vertices, Edges and Prioroty Queue
+     * @param numVertices - Number of vertices in the file. 
+     * @param numEdges - Number of edges in the file. 
      */
     public void dijkstra( String startName, int numVertices, int numEdges )
     {
@@ -200,11 +203,11 @@ public class Graph
                 }
             }
         }
-        System.out.print(numVertices);System.out.print(" ");
-        System.out.print(numEdges);System.out.print(" ");
-        System.out.print(opcount_v);System.out.print(" ");
-        System.out.print(opcount_e);System.out.print(" ");
-        System.out.println(opcount_pq);
+        //System.out.print(numVertices);System.out.print(" ");
+        //System.out.print(numEdges);System.out.print(" ");
+        //System.out.print(opcount_v);System.out.print(" ");
+        //System.out.print(opcount_e);System.out.print(" ");
+        //System.out.println(opcount_pq);
 
         String output = 
         (
