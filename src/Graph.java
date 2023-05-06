@@ -6,7 +6,7 @@
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
+//import java.util.List;
 import java.util.Queue;
 import java.util.Map;
 import java.util.LinkedList;
@@ -15,7 +15,9 @@ import java.util.NoSuchElementException;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 import java.util.StringTokenizer;
-
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList; //arraylist class
 
 // Graph class: evaluate shortest paths.
 //
@@ -38,6 +40,9 @@ public class Graph
 {
     public static final double INFINITY = Double.MAX_VALUE;
     private Map<String,Vertex> vertexMap = new HashMap<String,Vertex>( );
+
+    //Array to store output for each combination
+    public static ArrayList<String> outputStrings = new ArrayList<String>();
 
     int opcount_pq, opcount_v, opcount_e; // additional
 
@@ -152,6 +157,7 @@ public class Graph
     {
         PriorityQueue<Path> pq = new PriorityQueue<Path>( );
 
+
         Vertex start = vertexMap.get( startName );
         if( start == null )
             throw new NoSuchElementException( "Start vertex not found" );
@@ -196,9 +202,30 @@ public class Graph
         }
         System.out.print(numVertices);System.out.print(" ");
         System.out.print(numEdges);System.out.print(" ");
-        System.out.print(opcount_e);System.out.print(" ");
         System.out.print(opcount_v);System.out.print(" ");
+        System.out.print(opcount_e);System.out.print(" ");
         System.out.println(opcount_pq);
+
+        String output = 
+        (
+            String.valueOf(numVertices) + ", " +
+            String.valueOf(numEdges) + ", " +
+            String.valueOf(opcount_v) + ", " +
+            String.valueOf(opcount_e) + ", " +
+            String.valueOf(opcount_pq) +"\n"
+        );
+
+        try
+        {
+            FileWriter writer = new FileWriter("output.csv", true);
+            writer.append(output);
+            writer.close();
+            System.out.println("Output successfully written");
+        }
+        catch(IOException e){System.out.println("An error occurred.");e.printStackTrace();}
+
+
+
     }
 
     /**
@@ -396,7 +423,14 @@ public class Graph
 
     public static void main( String [ ] args )
     {
-        //int setNum = 1;
+        try
+        {
+            FileWriter writer = new FileWriter("output.csv");
+            writer.write("");
+            writer.close();
+        }
+        catch(IOException e){System.out.println("An error occurred. Could not be cleared");e.printStackTrace();}
+        
         for (int i=10;i<60;i=i+10)
         {
             for (int j=20;j<95;j=j+15)
