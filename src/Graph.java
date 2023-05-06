@@ -136,7 +136,7 @@ public class Graph
         {
             Vertex v = q.remove( );
 
-            for( Edge e : v.adj )
+            for( Edge<Vertex> e : v.adj )
             {
                 Vertex w = e.dest;
                 if( w.dist == INFINITY )
@@ -183,7 +183,7 @@ public class Graph
             v.scratch = 1;
             nodesSeen++;
 
-            for( Edge e : v.adj )
+            for( Edge<Vertex> e : v.adj )
             {
                 Vertex w = e.dest;
                 double cvw = e.cost;
@@ -252,7 +252,7 @@ public class Graph
             if( v.scratch++ > 2 * vertexMap.size( ) )
                 throw new GraphException( "Negative cycle detected" );
 
-            for( Edge e : v.adj )
+            for( Edge<Vertex> e : v.adj )
             {
                 Vertex w = e.dest;
                 double cvw = e.cost;
@@ -287,7 +287,7 @@ public class Graph
           // Compute the indegrees
 		Collection<Vertex> vertexSet = vertexMap.values( );
         for( Vertex v : vertexSet )
-            for( Edge e : v.adj )
+            for( Edge<Vertex> e : v.adj )
                 e.dest.scratch++;
             
           // Enqueue vertices of indegree zero
@@ -300,7 +300,7 @@ public class Graph
         {
             Vertex v = q.remove( );
 
-            for( Edge e : v.adj )
+            for( Edge<Vertex> e : v.adj )
             {
                 Vertex w = e.dest;
                 double cvw = e.cost;

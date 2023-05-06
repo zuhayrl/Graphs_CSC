@@ -1,10 +1,12 @@
 // Represents an edge in the graph.
-class Edge
+
+
+class Edge <T>
 {
-    public Vertex     dest;   // Second vertex in Edge
+    public T     dest;   // Second T in Edge
     public double     cost;   // Edge cost
     
-    public Edge( Vertex d, double c )
+    public Edge( T d, double c )
     {
         dest = d;
         cost = c;
