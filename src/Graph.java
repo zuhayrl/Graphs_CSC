@@ -377,7 +377,9 @@ public class Graph
         Graph g = new Graph( );
         try
         {   	
-            FileReader fin = new FileReader("C:\\Users\\zuhay\\OneDrive\\My Documents\\Git\\Github\\Graphs_CSC\\src\\data.txt");//was atgs[0]
+            //String flName = "C:\\Users\\zuhay\\OneDrive\\My Documents\\Git\\Github\\Graphs_CSC\\src\\data.txt";
+            String flName = "data.txt";
+            FileReader fin = new FileReader(flName);//was atgs[0]
             Scanner graphFile = new Scanner( fin );
 
             // Read the edges and insert
